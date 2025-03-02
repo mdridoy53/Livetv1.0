@@ -1,0 +1,16 @@
+{
+    "channels": [
+        {
+            "name": "Sports TV",
+            "category": "Sports",
+            "logo": "logo/sports.png",
+            "url": "https://example.com/m3u8"
+        },
+        {
+            "name": "News TV",
+            "category": "News",
+            "logo": "logo/news.png",
+            "url": "https://example.com/embed"
+        }
+    ]
+}
