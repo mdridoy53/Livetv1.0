@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>AI Chat Assistant</h2>
+        <div id="chatBox"></div>
+        <input type="text" id="userInput" placeholder="Ask something..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const inputField = document.getElementById("userInput");
+            const chatBox = document.getElementById("chatBox");
+
+            if (inputField.value.trim() !== "") {
+                chatBox.innerHTML += `<p><strong>You:</strong> ${inputField.value}</p>`;
+                fetch(`https://api.openai.com/v1/chat/completions`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-4",
+                        messages: [{ role: "user", content: inputField.value }]
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    chatBox.innerHTML += `<p><strong>AI:</strong> ${data.choices[0].message.content}</p>`;
+                });
+
+                inputField.value = "";
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") sendMessage();
+        }
+    </script>
+
+</body>
+</html>
