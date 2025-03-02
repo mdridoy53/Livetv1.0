@@ -1,31 +1,55 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
-    function generateRedeemCode() {
-        let duration = document.getElementById("redeemDuration").value;
-        let code = Math.random().toString(36).substring(2, 8).toUpperCase();
-        let expiry = new Date();
+.container {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
 
-        if (duration === "1min") expiry.setMinutes(expiry.getMinutes() + 1);
-        if (duration === "1day") expiry.setDate(expiry.getDate() + 1);
-        if (duration === "7days") expiry.setDate(expiry.getDate() + 7);
-        if (duration === "30days") expiry.setDate(expiry.getDate() + 30);
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
 
-        let redeemCodes = JSON.parse(localStorage.getItem("redeemCodes")) || [];
-        redeemCodes.push({ code, expiry });
-        localStorage.setItem("redeemCodes", JSON.stringify(redeemCodes));
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4500;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        document.getElementById("redeemCodes").innerHTML += `<li>${code} (Expires: ${expiry})</li>`;
-    }
+button:hover {
+    background-color: #ff5722;
+}
 
-    if (document.getElementById("userTable")) {
-        users.forEach(user => {
-            document.getElementById("userTable").innerHTML += `
-                <tr>
-                    <td>${user.username}</td>
-                    <td>${user.isPremium ? "Premium" : "Free"}</td>
-                </tr>
-            `;
-        });
-    }
-});
+#errorMessage {
+    color: red;
+    margin-top: 10px;
+}
+
+a {
+    color: #ff4500;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
