@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live TV</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Live TV Channels</h2>
+        <div id="tvContainer"></div>
+    </div>
+
+    <script>
+        fetch("tv-data.json")
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("tvContainer");
+                data.channels.forEach(channel => {
+                    container.innerHTML += `
+                        <div class="channel">
+                            <img src="${channel.logo}" width="100">
+                            <h3>${channel.name}</h3>
+                            <p>Category: ${channel.category}</p>
+                            <a href="${channel.url}" target="_blank">Watch</a>
+                        </div>
+                    `;
+                });
+            });
+    </script>
+
+</body>
+</html>
